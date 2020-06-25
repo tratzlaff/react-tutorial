@@ -2,19 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class Square extends React.Component {
-    render() {
-        return (
-            // <button className="square" onClick={ function () { alert('click'+this.props.value); } }>
-            // <button className="square" onClick={ () => { alert('click '+this.props.value); } }>
-            <button
-                className="square"
-                onClick={ () => this.props.onClick() }
-            >
-                {this.props.value}
-            </button>
-        );
-    }
+// Function components are a simpler way to write components that only contain a render method
+// and don't have their own state. Instead of defining a class which extends React.Component,
+// we can write a function that takes props as input and returns what should be rendered.
+function Square(props) {
+    return (
+      // <button className="square" onClick={() => this.props.onClick}>
+      <button className="square" onClick={props.onClick}>
+          {props.value}
+      </button>
+    );
 }
 
 class Board extends React.Component {
@@ -29,7 +26,7 @@ class Board extends React.Component {
     }
 
     handleClick(i) {
-        const squares = this.state.squares.slice();
+        const squares = this.state.squares.slice(); // Create copy of the squares array because immutability is important.
         squares[i] = 'X';
         this.setState({squares: squares});
     }
